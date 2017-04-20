@@ -106,3 +106,28 @@ banco <- data.frame(ego = nomes_arquivos,
                     stringsAsFactors = F)
 View(banco)
 
+#########################################
+### Algumas análises a nível individual
+mais_central_grau = c()
+mais_central_between = c()
+mais_central_constraint = c()
+
+#for (grafo in grafos){
+#  grau = degree(grafo)
+#  inter = betweenness(grafo)
+#  const = constraint(grafo)
+  
+  
+#}
+
+#primeiro_cent_grau <- sapply(grafos, pega_centrais, FUN=degree, rank=1)
+
+grau = degree(g1)
+class(which.max(grau))
+grau[22]
+
+
+
+
+
+
