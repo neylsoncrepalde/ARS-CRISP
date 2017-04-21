@@ -27,7 +27,7 @@ le_matrizes_xlsx <- function(x){
 #dado1 = read.xlsx(arquivos[18], 2)
 #View(dado1)
 
-
+#Só tive que mudar 03 AGENTE NELSON HUNGRIA
 dados = lapply(arquivos, le_matrizes_xlsx)
 ###############################################################
 
@@ -44,10 +44,10 @@ g4 <- graph_from_adjacency_matrix(dados[[4]])
 plot(g4); title(nomes_arquivos[4])
 
 par(mfrow=c(2,2))
-plot(g1, edge.arrow.size=.2); title(nomes_arquivos[1])
-plot(g2, edge.arrow.size=.2); title(nomes_arquivos[2])
-plot(g3, edge.arrow.size=.2); title(nomes_arquivos[3])
-plot(g4, edge.arrow.size=.2); title(nomes_arquivos[4])
+plot(g1, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[1])
+plot(g2, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[2])
+plot(g3, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[3])
+plot(g4, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[4])
 par(mfrow=c(1,1))
 
 g5 <- graph_from_adjacency_matrix(dados[[5]])
@@ -79,12 +79,11 @@ g30 <- graph_from_adjacency_matrix(dados[[30]])
 g31 <- graph_from_adjacency_matrix(dados[[31]])
 g32 <- graph_from_adjacency_matrix(dados[[32]])
 g33 <- graph_from_adjacency_matrix(dados[[33]])
-g34 <- graph_from_adjacency_matrix(dados[[34]])
 
 grafos = list(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,
               g11,g12,g13,g14,g15,g16,g17,g18,g19,g20,
               g21,g22,g23,g24,g25,g26,g27,g28,g29,g30,
-              g31,g32,g33,g34)
+              g31,g32,g33)
 
 #####################################################
 ### Montando uma tabela com as métricas de cada 
