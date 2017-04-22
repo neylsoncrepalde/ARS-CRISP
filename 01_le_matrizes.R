@@ -6,6 +6,7 @@
 library(xlsx)
 library(igraph)
 library(dplyr)
+library(descr)
 
 setwd('~/Documentos/Neylson Crepalde/Doutorado/CRISP/Tabelas de Redes')
 arquivos <- list.files('~/Documentos/Neylson Crepalde/Doutorado/CRISP/Tabelas de Redes',
@@ -142,6 +143,19 @@ plot(grafos[[6]], vertex.color = (V(grafos[[6]])$preso)+2,
      vertex.size = as.numeric(V(grafos[[6]])$frequencia_de_contatos),
      edge.arrow.size=.2)
 title(nomes_arquivos[6])
+
+###########################
+# Calculando a proporção de conhecidos presos e não-presos
+atributos[[1]]$PRESO[atributos[[1]]$PRESO==0] = 2
+
+prop_presos <- c()
+for (i in 1:length(atributos)){
+  mat <- freq(atributos[[i]]$PRESO,plot=F)
+  x = mat[1,2]
+  prop_presos[i] = x
+}
+prop_presos # Tem viés!
+
 
 #########################################
 ### Algumas análises a nível individual
