@@ -5,6 +5,7 @@
 
 library(xlsx)
 library(igraph)
+library(dplyr)
 
 setwd('~/Documentos/Neylson Crepalde/Doutorado/CRISP/Tabelas de Redes')
 arquivos <- list.files('~/Documentos/Neylson Crepalde/Doutorado/CRISP/Tabelas de Redes',
@@ -104,6 +105,43 @@ banco <- data.frame(ego = nomes_arquivos,
                     transitividade = transitividade,
                     stringsAsFactors = F)
 View(banco)
+
+#########################################
+# Pegando os atributos
+le_atributos_xlsx <- function(x){
+  cat(paste0(as.character(x), '\n'))
+  dados = read.xlsx(x, 1, stringsAsFactors=F)
+  return(dados)
+}
+
+atributos = lapply(arquivos, le_atributos_xlsx)
+
+#Corrigindo numero de linhas nos atributos
+for (i in 1:length(atributos)){
+  atributos[[i]] <- atributos[[i]][1:banco$n[i],]
+}
+
+names(atributos[[1]])
+
+##### Recodificar os missing values...
+for (i in 1:length(atributos)){
+    atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES[is.na(atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES) == T] = 0
+    atributos[[i]]$TIPOS.DE.RELAÇÃO[is.na(atributos[[i]]$TIPOS.DE.RELAÇÃO) == T] = 0
+    atributos[[i]]$PRESO[is.na(atributos[[i]]$PRESO) == T] = 0
+}
+
+#Colocando o atributo preso
+for (i in 1:length(grafos)){
+  V(grafos[[i]])$preso = atributos[[i]]$PRESO
+  V(grafos[[i]])$tipo_relacao = atributos[[i]]$TIPOS.DE.RELAÇÃO
+  V(grafos[[i]])$frequencia_de_contatos = atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES
+}
+
+#Plotando com atributos
+plot(grafos[[6]], vertex.color = (V(grafos[[6]])$preso)+2,
+     vertex.size = as.numeric(V(grafos[[6]])$frequencia_de_contatos),
+     edge.arrow.size=.2)
+title(nomes_arquivos[6])
 
 #########################################
 ### Algumas análises a nível individual
