@@ -139,11 +139,13 @@ for (i in 1:length(grafos)){
 }
 
 #Plotando com atributos
-plot(grafos[[6]], vertex.color = (V(grafos[[6]])$preso)+2,
-     vertex.size = as.numeric(V(grafos[[6]])$frequencia_de_contatos),
-     edge.arrow.size=.2)
-title(nomes_arquivos[6])
-
+#par(mfrow=c(2,2))
+plot(grafos[[4]], vertex.color = (V(grafos[[4]])$preso)+2,
+     vertex.size = as.numeric(V(grafos[[1]])$frequencia_de_contatos),
+     edge.arrow.size=.2, vertex.label = NA,
+     xlab="Tamanho = Freq de contato\nCor = Preso/Não-Preso")
+title(nomes_arquivos[4])
+#par(mfrow=c(1,1))
 ###########################
 # Calculando a proporção de conhecidos presos e não-presos
 atributos[[1]]$PRESO[atributos[[1]]$PRESO==0] = 2
