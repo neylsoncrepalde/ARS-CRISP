@@ -102,6 +102,7 @@ transitividade = sapply(grafos, transitivity, type="global")
 banco <- data.frame(ego = nomes_arquivos,
                     densidades = densidades,
                     diametros = diametros,
+                    distancia_media = distancia_media,
                     n = n,
                     transitividade = transitividade,
                     stringsAsFactors = F)
@@ -152,11 +153,13 @@ for (i in 1:length(grafos)){
 
 #Plotando com atributos
 #par(mfrow=c(2,2))
-plot(grafos[[3]], vertex.color = (V(grafos[[3]])$preso)+2,
-     vertex.size = as.numeric(V(grafos[[3]])$frequencia_de_contatos),
-     edge.arrow.size=.2, vertex.label = NA,
+plot(grafos[[33]], vertex.color = (V(grafos[[3]])$preso)+2,
+     #vertex.size = grauin33/2,
+     vertex.size = as.numeric(V(grafos[[33]])$frequencia_de_contatos),
+     edge.arrow.size=.2, vertex.label.cex = 1,
      xlab="Tamanho = Freq de contato\nCor = Preso/Não-Preso")
-title(nomes_arquivos[3])
+     #layout = layout_with_kk)
+title(nomes_arquivos[33])
 #par(mfrow=c(1,1))
 ###########################
 # Calculando a proporção de conhecidos presos e não-presos
@@ -187,12 +190,12 @@ for (i in 1:length(atributos)){
     prop_presos[i] = x
   }
 }
-prop_presos # Verificar
+prop_presos # PONDERAR PELA QTD DE ENCONTROS
 
 banco$prop_presos <- prop_presos
 
 #########################################
-### Algumas análises a nível individual
+### Algumas análises a nível individual  AVANÇAR!
 mais_central_grau = c()
 mais_central_between = c()
 mais_central_constraint = c()
