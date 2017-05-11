@@ -8,8 +8,8 @@ library(igraph)
 library(dplyr)
 library(descr)
 
-setwd('~/Documentos/Neylson Crepalde/Doutorado/CRISP/Tabelas de Redes')
-arquivos <- list.files('~/Documentos/Neylson Crepalde/Doutorado/CRISP/Tabelas de Redes',
+setwd('~/Documentos/Neylson Crepalde/Doutorado/CRISP/redes_corrigidas_atualizadas')
+arquivos <- list.files('~/Documentos/Neylson Crepalde/Doutorado/CRISP/redes_corrigidas_atualizadas',
                        '.xls')
 nomes_arquivos = sapply(arquivos, gsub, pattern=' ', replacement='_')
 nomes_arquivos = sapply(nomes_arquivos, gsub, pattern='.xlsx', replacement='')
@@ -33,16 +33,16 @@ le_matrizes_xlsx <- function(x){
 dados = lapply(arquivos, le_matrizes_xlsx)
 ###############################################################
 
-g1 <- graph_from_adjacency_matrix(dados[[1]])
+g1 <- graph_from_adjacency_matrix(dados[[1]], mode = "directed", weighted = T)
 plot(g1); title(nomes_arquivos[1])
 
-g2 <- graph_from_adjacency_matrix(dados[[2]])
+g2 <- graph_from_adjacency_matrix(dados[[2]], mode = "directed", weighted = T)
 plot(g2); title(nomes_arquivos[2])
 
-g3 <- graph_from_adjacency_matrix(dados[[3]])
+g3 <- graph_from_adjacency_matrix(dados[[3]], mode = "directed", weighted = T)
 plot(g3); title(nomes_arquivos[3])
 
-g4 <- graph_from_adjacency_matrix(dados[[4]])
+g4 <- graph_from_adjacency_matrix(dados[[4]], mode = "directed", weighted = T)
 plot(g4); title(nomes_arquivos[4])
 
 par(mfrow=c(2,2))
@@ -52,35 +52,35 @@ plot(g3, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[3])
 plot(g4, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[4])
 par(mfrow=c(1,1))
 
-g5 <- graph_from_adjacency_matrix(dados[[5]])
-g6 <- graph_from_adjacency_matrix(dados[[6]])
-g7 <- graph_from_adjacency_matrix(dados[[7]])
-g8 <- graph_from_adjacency_matrix(dados[[8]])
-g9 <- graph_from_adjacency_matrix(dados[[9]])
-g10 <- graph_from_adjacency_matrix(dados[[10]])
-g11 <- graph_from_adjacency_matrix(dados[[11]])
-g12 <- graph_from_adjacency_matrix(dados[[12]])
-g13 <- graph_from_adjacency_matrix(dados[[13]])
-g14 <- graph_from_adjacency_matrix(dados[[14]])
-g15 <- graph_from_adjacency_matrix(dados[[15]])
-g16 <- graph_from_adjacency_matrix(dados[[16]])
-g17 <- graph_from_adjacency_matrix(dados[[17]])
-g18 <- graph_from_adjacency_matrix(dados[[18]])
-g19 <- graph_from_adjacency_matrix(dados[[19]])
-g20 <- graph_from_adjacency_matrix(dados[[20]])
-g21 <- graph_from_adjacency_matrix(dados[[21]])
-g22 <- graph_from_adjacency_matrix(dados[[22]])
-g23 <- graph_from_adjacency_matrix(dados[[23]])
-g24 <- graph_from_adjacency_matrix(dados[[24]])
-g25 <- graph_from_adjacency_matrix(dados[[25]])
-g26 <- graph_from_adjacency_matrix(dados[[26]])
-g27 <- graph_from_adjacency_matrix(dados[[27]])
-g28 <- graph_from_adjacency_matrix(dados[[28]])
-g29 <- graph_from_adjacency_matrix(dados[[29]])
-g30 <- graph_from_adjacency_matrix(dados[[30]])
-g31 <- graph_from_adjacency_matrix(dados[[31]])
-g32 <- graph_from_adjacency_matrix(dados[[32]])
-g33 <- graph_from_adjacency_matrix(dados[[33]])
+g5 <- graph_from_adjacency_matrix(dados[[5]], mode = "directed", weighted = T)
+g6 <- graph_from_adjacency_matrix(dados[[6]], mode = "directed", weighted = T)
+g7 <- graph_from_adjacency_matrix(dados[[7]], mode = "directed", weighted = T)
+g8 <- graph_from_adjacency_matrix(dados[[8]], mode = "directed", weighted = T)
+g9 <- graph_from_adjacency_matrix(dados[[9]], mode = "directed", weighted = T)
+g10 <- graph_from_adjacency_matrix(dados[[10]], mode = "directed", weighted = T)
+g11 <- graph_from_adjacency_matrix(dados[[11]], mode = "directed", weighted = T)
+g12 <- graph_from_adjacency_matrix(dados[[12]], mode = "directed", weighted = T)
+g13 <- graph_from_adjacency_matrix(dados[[13]], mode = "directed", weighted = T)
+g14 <- graph_from_adjacency_matrix(dados[[14]], mode = "directed", weighted = T)
+g15 <- graph_from_adjacency_matrix(dados[[15]], mode = "directed", weighted = T)
+g16 <- graph_from_adjacency_matrix(dados[[16]], mode = "directed", weighted = T)
+g17 <- graph_from_adjacency_matrix(dados[[17]], mode = "directed", weighted = T)
+g18 <- graph_from_adjacency_matrix(dados[[18]], mode = "directed", weighted = T)
+g19 <- graph_from_adjacency_matrix(dados[[19]], mode = "directed", weighted = T)
+g20 <- graph_from_adjacency_matrix(dados[[20]], mode = "directed", weighted = T)
+g21 <- graph_from_adjacency_matrix(dados[[21]], mode = "directed", weighted = T)
+g22 <- graph_from_adjacency_matrix(dados[[22]], mode = "directed", weighted = T)
+g23 <- graph_from_adjacency_matrix(dados[[23]], mode = "directed", weighted = T)
+g24 <- graph_from_adjacency_matrix(dados[[24]], mode = "directed", weighted = T)
+g25 <- graph_from_adjacency_matrix(dados[[25]], mode = "directed", weighted = T)
+g26 <- graph_from_adjacency_matrix(dados[[26]], mode = "directed", weighted = T)
+g27 <- graph_from_adjacency_matrix(dados[[27]], mode = "directed", weighted = T)
+g28 <- graph_from_adjacency_matrix(dados[[28]], mode = "directed", weighted = T)
+g29 <- graph_from_adjacency_matrix(dados[[29]], mode = "directed", weighted = T)
+g30 <- graph_from_adjacency_matrix(dados[[30]], mode = "directed", weighted = T)
+g31 <- graph_from_adjacency_matrix(dados[[31]], mode = "directed", weighted = T)
+g32 <- graph_from_adjacency_matrix(dados[[32]], mode = "directed", weighted = T)
+g33 <- graph_from_adjacency_matrix(dados[[33]], mode = "directed", weighted = T)
 
 grafos = list(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,
               g11,g12,g13,g14,g15,g16,g17,g18,g19,g20,
@@ -93,7 +93,7 @@ grafos = list(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,
 # Vendo se há algum não conectado
 sapply(grafos, is.connected)
 
-densidades = sapply(grafos, edge_density)
+densidades = sapply(grafos, edge_density, loops = F)
 diametros = sapply(grafos, diameter)
 distancia_media = sapply(grafos, mean_distance)
 n = sapply(grafos, function(x) length(V(x)))
@@ -106,6 +106,18 @@ banco <- data.frame(ego = nomes_arquivos,
                     transitividade = transitividade,
                     stringsAsFactors = F)
 View(banco)
+
+#########################################
+# Lendo o banco de atributos SPSS
+library(foreign)
+atributos <- read.spss("Redes Banco SPSS.sav", to.data.frame = T)
+View(atributos)
+att1 = atributos[atributos$Q.3==1,]
+View(att1)
+att2 = atributos[atributos$Q.3==2,]
+View(att2)
+
+# Tem probleminhas aqui. Precisamos verificar
 
 #########################################
 # Pegando os atributos
@@ -126,9 +138,9 @@ names(atributos[[1]])
 
 ##### Recodificar os missing values...
 for (i in 1:length(atributos)){
-    atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES[is.na(atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES) == T] = 0
-    atributos[[i]]$TIPOS.DE.RELAÇÃO[is.na(atributos[[i]]$TIPOS.DE.RELAÇÃO) == T] = 0
-    atributos[[i]]$PRESO[is.na(atributos[[i]]$PRESO) == T] = 0
+  atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES[is.na(atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES) == T] = 0
+  atributos[[i]]$TIPOS.DE.RELAÇÃO[is.na(atributos[[i]]$TIPOS.DE.RELAÇÃO) == T] = 0
+  #atributos[[i]]$PRESO[is.na(atributos[[i]]$PRESO) == T] = 0
 }
 
 #Colocando o atributo preso
@@ -148,7 +160,10 @@ title(nomes_arquivos[4])
 #par(mfrow=c(1,1))
 ###########################
 # Calculando a proporção de conhecidos presos e não-presos
-atributos[[1]]$PRESO[atributos[[1]]$PRESO==0] = 2
+for (i in 1:33){
+  print(atributos[[i]]$PRESO)
+}
+
 
 prop_presos <- c()
 for (i in 1:length(atributos)){
@@ -156,8 +171,9 @@ for (i in 1:length(atributos)){
   x = mat[1,2]
   prop_presos[i] = x
 }
-prop_presos # Tem viés!
+prop_presos # Verificar
 
+banco$prop_presos <- prop_presos
 
 #########################################
 ### Algumas análises a nível individual
@@ -169,8 +185,8 @@ mais_central_constraint = c()
 #  grau = degree(grafo)
 #  inter = betweenness(grafo)
 #  const = constraint(grafo)
-  
-  
+
+
 #}
 
 #primeiro_cent_grau <- sapply(grafos, pega_centrais, FUN=degree, rank=1)
@@ -178,7 +194,6 @@ mais_central_constraint = c()
 grau = degree(g1)
 class(which.max(grau))
 grau[22]
-
 
 
 
