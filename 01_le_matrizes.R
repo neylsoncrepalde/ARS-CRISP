@@ -152,24 +152,40 @@ for (i in 1:length(grafos)){
 
 #Plotando com atributos
 #par(mfrow=c(2,2))
-plot(grafos[[4]], vertex.color = (V(grafos[[4]])$preso)+2,
-     vertex.size = as.numeric(V(grafos[[1]])$frequencia_de_contatos),
+plot(grafos[[3]], vertex.color = (V(grafos[[3]])$preso)+2,
+     vertex.size = as.numeric(V(grafos[[3]])$frequencia_de_contatos),
      edge.arrow.size=.2, vertex.label = NA,
      xlab="Tamanho = Freq de contato\nCor = Preso/Não-Preso")
-title(nomes_arquivos[4])
+title(nomes_arquivos[3])
 #par(mfrow=c(1,1))
 ###########################
 # Calculando a proporção de conhecidos presos e não-presos
 for (i in 1:33){
+  cat(i)
   print(atributos[[i]]$PRESO)
 }
 
+#Limpando uma variável
+atributos[[16]]$PRESO[atributos[[16]]$PRESO == "1 Já esteve"] = 1
+atributos[[16]]$PRESO[atributos[[16]]$PRESO == "1 Já foi"] = 1
 
+#Transformando em numeric
+for (i in c(16,17,31)){
+  atributos[[i]]$PRESO <- as.numeric(atributos[[i]]$PRESO)
+}
+
+
+# Calculando a proporção de presos X não-presos
 prop_presos <- c()
 for (i in 1:length(atributos)){
-  mat <- freq(atributos[[i]]$PRESO,plot=F)
-  x = mat[1,2]
-  prop_presos[i] = x
+  if (NA %in% atributos[[i]]$PRESO){
+    prop_presos[i] = NA
+  }
+  else{
+    mat <- freq(atributos[[i]]$PRESO,plot=F)
+    x = mat[1,2]
+    prop_presos[i] = x
+  }
 }
 prop_presos # Verificar
 
