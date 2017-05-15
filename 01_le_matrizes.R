@@ -111,7 +111,7 @@ View(banco)
 #########################################
 # Lendo o banco de atributos SPSS
 library(foreign)
-atributos <- read.spss("Redes Banco SPSS.sav", to.data.frame = T)
+atributos <- read.spss("Banco redes.sav", to.data.frame = T)
 View(atributos)
 att1 = atributos[atributos$Q.3==1,]
 View(att1)
