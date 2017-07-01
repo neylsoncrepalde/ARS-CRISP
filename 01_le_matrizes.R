@@ -204,6 +204,26 @@ for (i in 1:33){
   print(atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES)
 }
 
+atributos[[5]]$FREQUENCIA.DE.CONTADOS.NO.MES = 0
+atributos[[11]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[11]]$FREQUENCIA.DE.CONTADOS.NO.MES == "(falecido)"] = 0
+atributos[[11]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[11]]$FREQUENCIA.DE.CONTADOS.NO.MES == "telefone"] = 0
+atributos[[22]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[22]]$FREQUENCIA.DE.CONTADOS.NO.MES == "0 (TRES CARTAS)"] = 0
+atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES == "20-25"] = 25
+atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES == "12-15"] = 15
+atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES == "1-2"] = 2
+atributos[[32]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[32]]$FREQUENCIA.DE.CONTADOS.NO.MES == "(faleceu)"] = 0
+#######
+
+# limpando a variável tipos de relação
+for (i in 1:33){
+  cat(i)
+  print(atributos[[i]]$TIPOS.DE.RELAÇÃO)
+}
+
+
+
+
+
 
 
 
