@@ -34,23 +34,23 @@ dados = lapply(arquivos, le_matrizes_xlsx)
 ###############################################################
 
 g1 <- graph_from_adjacency_matrix(dados[[1]], mode = "directed", weighted = T)
-plot(g1); title(nomes_arquivos[1])
+#plot(g1); title(nomes_arquivos[1])
 
 g2 <- graph_from_adjacency_matrix(dados[[2]], mode = "directed", weighted = T)
-plot(g2); title(nomes_arquivos[2])
+#plot(g2); title(nomes_arquivos[2])
 
 g3 <- graph_from_adjacency_matrix(dados[[3]], mode = "directed", weighted = T)
-plot(g3); title(nomes_arquivos[3])
+#plot(g3); title(nomes_arquivos[3])
 
 g4 <- graph_from_adjacency_matrix(dados[[4]], mode = "directed", weighted = T)
-plot(g4); title(nomes_arquivos[4])
+#plot(g4); title(nomes_arquivos[4])
 
-par(mfrow=c(2,2))
-plot(g1, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[1])
-plot(g2, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[2])
-plot(g3, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[3])
-plot(g4, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[4])
-par(mfrow=c(1,1))
+#par(mfrow=c(2,2))
+#plot(g1, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[1])
+#plot(g2, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[2])
+#plot(g3, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[3])
+#plot(g4, edge.arrow.size=.2, vertex.label=NA); title(nomes_arquivos[4])
+#par(mfrow=c(1,1))
 
 g5 <- graph_from_adjacency_matrix(dados[[5]], mode = "directed", weighted = T)
 g6 <- graph_from_adjacency_matrix(dados[[6]], mode = "directed", weighted = T)
@@ -110,13 +110,13 @@ View(banco)
 
 #########################################
 # Lendo o banco de atributos SPSS
-library(foreign)
-atributos <- read.spss("Banco redes.sav", to.data.frame = T)
-View(atributos)
-att1 = atributos[atributos$Q.3==1,]
-View(att1)
-att2 = atributos[atributos$Q.3==2,]
-View(att2)
+#library(foreign)
+#atributos <- read.spss("Banco redes.sav", to.data.frame = T)
+#View(atributos)
+#att1 = atributos[atributos$Q.3==1,]
+#View(att1)
+#att2 = atributos[atributos$Q.3==2,]
+#View(att2)
 
 # Tem probleminhas aqui. Precisamos verificar
 
@@ -140,8 +140,8 @@ names(atributos[[1]])
 ##### Recodificar os missing values...
 for (i in 1:length(atributos)){
   atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES[is.na(atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES) == T] = 0
-  atributos[[i]]$TIPOS.DE.RELAÇÃO[is.na(atributos[[i]]$TIPOS.DE.RELAÇÃO) == T] = 0
-  #atributos[[i]]$PRESO[is.na(atributos[[i]]$PRESO) == T] = 0
+  atributos[[i]]$TIPOS.DE.RELAÇÃO[is.na(atributos[[i]]$TIPOS.DE.RELAÇÃO) == T] = 0  #0 = desconhecido
+  atributos[[i]]$PRESO[is.na(atributos[[i]]$PRESO) == T] = 0   #0 = desconhecido
 }
 
 #Colocando o atributo preso
@@ -153,9 +153,9 @@ for (i in 1:length(grafos)){
 
 #Plotando com atributos
 #par(mfrow=c(2,2))
-plot(grafos[[33]], vertex.color = (V(grafos[[3]])$preso)+2,
+plot(grafos[[20]], vertex.color = (V(grafos[[20]])$preso)+2,
      #vertex.size = grauin33/2,
-     vertex.size = as.numeric(V(grafos[[33]])$frequencia_de_contatos),
+     vertex.size = as.numeric(V(grafos[[20]])$frequencia_de_contatos),
      edge.arrow.size=.2, vertex.label.cex = 1,
      xlab="Tamanho = Freq de contato\nCor = Preso/Não-Preso")
      #layout = layout_with_kk)
@@ -193,6 +193,26 @@ for (i in 1:length(atributos)){
 prop_presos # PONDERAR PELA QTD DE ENCONTROS
 
 banco$prop_presos <- prop_presos
+
+
+#################################################
+#################################################
+
+### Consertando a variável frequencia de contatos no mes
+for (i in 1:33){
+  cat(i)
+  print(atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES)
+}
+
+
+
+
+# Proporção de presos ponderado pelo número de encontros
+for (att in 1:length(atributos)){
+  atributos[att]$preso_qtd_encontros = atributos[att]$PRESO * atributos[att]$FREQUENCIA.DE.CONTADOS.NO.MES
+  
+}
+
 
 #########################################
 ### Algumas análises a nível individual  AVANÇAR!
