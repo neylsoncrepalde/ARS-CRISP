@@ -284,11 +284,36 @@ for (i in 1:33){
 
 
 ################################
+# Construindo a variável shape
+for (i in 1:length(atributos)){
+  atributos[[i]]$SHAPE = "none"
+}
+
+
+for (i in 1:length(atributos)){
+  for (row in 1:nrow(atributos[[i]])){
+    if (atributos[[i]]$PRESO[row] == 1){
+      atributos[[i]]$SHAPE[row] = "square"
+    }
+    if (atributos[[i]]$PRESO[row] == 2){
+      atributos[[i]]$SHAPE[row] = "circle"
+    }
+  }
+}
+
+for (i in 1:length(atributos)){
+  print(atributos[[i]]$SHAPE)
+}
+
+
+################################################
 # Plotando os grafos com as informações disponíveis
+### COLOCAR LEGENDA!!!
 
 for (i in 1:32){              
   #exclui 33 pq não tem informação
-  plot(grafos[[i]], vertex.color = atributos[[i]]$PRESO+2,
+  plot(grafos[[i]], vertex.shape = atributos[[i]]$SHAPE,
+       vertex.color = atributos[[i]]$TIPOS.DE.RELAÇÃO,
        vertex.size = atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES+2,
        edge.arrow.size=.3, vertex.label.cex = .8,
        xlab="Tamanho = Freq de contato\nCor = Preso/Não-Preso")
