@@ -110,9 +110,9 @@ View(banco)
 
 #########################################
 # Lendo o banco de atributos SPSS
-#library(foreign)
-#atributos <- read.spss("Banco redes.sav", to.data.frame = T)
-#View(atributos)
+library(foreign)
+atributos.spss <- read.spss("Banco redes.sav", to.data.frame = T)
+View(atributos.spss)
 #att1 = atributos[atributos$Q.3==1,]
 #View(att1)
 #att2 = atributos[atributos$Q.3==2,]
@@ -212,6 +212,13 @@ atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[31]]$FREQUENCIA.DE.CONT
 atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES == "12-15"] = 15
 atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[31]]$FREQUENCIA.DE.CONTADOS.NO.MES == "1-2"] = 2
 atributos[[32]]$FREQUENCIA.DE.CONTADOS.NO.MES[atributos[[32]]$FREQUENCIA.DE.CONTADOS.NO.MES == "(faleceu)"] = 0
+
+#transforma em numeric
+for (i in 1:33){
+  atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES = as.numeric(atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES)
+}
+
+
 #######
 
 # limpando a variável tipos de relação
@@ -220,25 +227,46 @@ for (i in 1:33){
   print(atributos[[i]]$TIPOS.DE.RELAÇÃO)
 }
 
+atributos[[3]]$TIPOS.DE.RELAÇÃO[atributos[[3]]$TIPOS.DE.RELAÇÃO == "2-3"] = 99
+atributos[[12]]$TIPOS.DE.RELAÇÃO[atributos[[12]]$TIPOS.DE.RELAÇÃO == "3-6"] = 99
+atributos[[13]]$TIPOS.DE.RELAÇÃO[atributos[[13]]$TIPOS.DE.RELAÇÃO == "(2) 3"] = 99
+atributos[[16]]$TIPOS.DE.RELAÇÃO[atributos[[16]]$TIPOS.DE.RELAÇÃO == "5-2"] = 99
+atributos[[17]]$TIPOS.DE.RELAÇÃO[atributos[[17]]$TIPOS.DE.RELAÇÃO == "2-6"] = 99
+atributos[[25]]$TIPOS.DE.RELAÇÃO[atributos[[25]]$TIPOS.DE.RELAÇÃO == "5-6"] = 99
+atributos[[26]]$TIPOS.DE.RELAÇÃO[atributos[[26]]$TIPOS.DE.RELAÇÃO == "PROMOTOR DA VEC"] = 0
+atributos[[28]]$TIPOS.DE.RELAÇÃO[atributos[[28]]$TIPOS.DE.RELAÇÃO == "5 (COORD. DE RESSOC.)"] = 5
+atributos[[28]]$TIPOS.DE.RELAÇÃO[atributos[[28]]$TIPOS.DE.RELAÇÃO == "2 (PRESO DE OUTRA UNIDADE)"] = 2
+atributos[[31]]$TIPOS.DE.RELAÇÃO[atributos[[31]]$TIPOS.DE.RELAÇÃO == "3(2)"] = 99
+atributos[[31]]$TIPOS.DE.RELAÇÃO[atributos[[31]]$TIPOS.DE.RELAÇÃO == "6(3)"] = 99
 
+#transforma em numeric
+for (i in 1:33){
+  atributos[[i]]$TIPOS.DE.RELAÇÃO = as.numeric(atributos[[i]]$TIPOS.DE.RELAÇÃO)
+}
 
-
-
-
+#for (i in 1:33){
+#  atributos[[i]] = atributos[[i]] %>% 
+#    recode(TIPOS.DE.RELAÇÃO, `0`="Sem informação",
+#          `1`= "Família", `2`="Amigo/Conhecido Interno",
+#          `3`="Amigo/Conhecido Externo", `4`="Inimigo",
+#          `5`="Agente/Equipe psicossocial", 
+#          `6`="Relação Profissional",
+#          `99` = "Múltiplas relações")
+#}
 
 
 # Proporção de presos ponderado pelo número de encontros
-for (att in 1:length(atributos)){
-  atributos[att]$preso_qtd_encontros = atributos[att]$PRESO * atributos[att]$FREQUENCIA.DE.CONTADOS.NO.MES
-  
-}
+#for (att in 1:length(atributos)){
+#  atributos[att]$preso_qtd_encontros = atributos[att]$PRESO * atributos[att]$FREQUENCIA.DE.CONTADOS.NO.MES
+#  
+#}
 
 
 #########################################
 ### Algumas análises a nível individual  AVANÇAR!
-mais_central_grau = c()
-mais_central_between = c()
-mais_central_constraint = c()
+#mais_central_grau = c()
+#mais_central_between = c()
+#mais_central_constraint = c()
 
 #for (grafo in grafos){
 #  grau = degree(grafo)
@@ -250,11 +278,23 @@ mais_central_constraint = c()
 
 #primeiro_cent_grau <- sapply(grafos, pega_centrais, FUN=degree, rank=1)
 
-grau = degree(g1)
-class(which.max(grau))
-grau[22]
+#grau = degree(g1)
+#class(which.max(grau))
+#grau[22]
 
 
+################################
+# Plotando os grafos com as informações disponíveis
+
+for (i in 1:32){              
+  #exclui 33 pq não tem informação
+  plot(grafos[[i]], vertex.color = atributos[[i]]$PRESO+2,
+       vertex.size = atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES+2,
+       edge.arrow.size=.3, vertex.label.cex = .8,
+       xlab="Tamanho = Freq de contato\nCor = Preso/Não-Preso")
+  #layout = layout_with_kk)
+  title(nomes_arquivos[i])
+}
 
 
 
