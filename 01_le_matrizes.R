@@ -305,6 +305,43 @@ for (i in 1:length(atributos)){
   print(atributos[[i]]$SHAPE)
 }
 
+#Construindo a variável CORES
+
+for (i in 1:length(atributos)){
+  atributos[[i]]$CORES = "white"
+}
+
+for (i in 1:length(atributos)){
+  for (row in 1:nrow(atributos[[i]])){
+    if (atributos[[i]]$TIPOS.DE.RELAÇÃO[row] == 1){
+      atributos[[i]]$CORES[row] = "red"
+    }
+    if (atributos[[i]]$TIPOS.DE.RELAÇÃO[row] == 2){
+      atributos[[i]]$CORES[row] = "green"
+    }
+    if (atributos[[i]]$TIPOS.DE.RELAÇÃO[row] == 3){
+      atributos[[i]]$CORES[row] = "yellow"
+    }
+    if (atributos[[i]]$TIPOS.DE.RELAÇÃO[row] == 4){
+      atributos[[i]]$CORES[row] = "black"
+    }
+    if (atributos[[i]]$TIPOS.DE.RELAÇÃO[row] == 5){
+      atributos[[i]]$CORES[row] = "orange"
+    }
+    if (atributos[[i]]$TIPOS.DE.RELAÇÃO[row] == 6){
+      atributos[[i]]$CORES[row] = "blue"
+    }
+    if (atributos[[i]]$TIPOS.DE.RELAÇÃO[row] == 99){
+      atributos[[i]]$CORES[row] = "pink"
+    }
+  }
+}
+
+for (i in 1:length(atributos)){
+  print(atributos[[i]]$CORES)
+}
+
+
 
 ################################################
 # Plotando os grafos com as informações disponíveis
@@ -313,7 +350,7 @@ for (i in 1:length(atributos)){
 for (i in 1:32){              
   #exclui 33 pq não tem informação
   plot(grafos[[i]], vertex.shape = atributos[[i]]$SHAPE,
-       vertex.color = atributos[[i]]$TIPOS.DE.RELAÇÃO,
+       vertex.color = adjustcolor(atributos[[i]]$CORES, .6),
        vertex.size = atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES+2,
        edge.arrow.size=.3, vertex.label.cex = .8,
        xlab="Tamanho = Freq de contato\nCor = Preso/Não-Preso")
