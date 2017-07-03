@@ -107,6 +107,8 @@ banco <- data.frame(ego = nomes_arquivos,
                     transitividade = transitividade,
                     stringsAsFactors = F)
 View(banco)
+#write.xlsx(banco, "metricas_redes.xlsx", sheetName = "Métricas", 
+#           row.names = F, showNA = F)
 
 #########################################
 # Lendo o banco de atributos SPSS
