@@ -352,8 +352,8 @@ for (i in 1:32){
   plot(grafos[[i]], vertex.shape = atributos[[i]]$SHAPE,
        vertex.color = adjustcolor(atributos[[i]]$CORES, .6),
        vertex.size = atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES+2,
-       edge.arrow.size=.3, vertex.label.cex = .8,
-       xlab="Tamanho = Freq de contato\nCor = Preso/Não-Preso")
+       edge.arrow.size=.3, vertex.label = NA,
+       xlab="Tamanho = Frequência de Contato\nCor = Tipo de Relação\nForma = Preso")
   #layout = layout_with_kk)
   title(nomes_arquivos[i])
 }
