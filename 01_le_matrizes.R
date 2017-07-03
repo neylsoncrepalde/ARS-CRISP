@@ -195,7 +195,8 @@ for (i in 1:length(atributos)){
 prop_presos # PONDERAR PELA QTD DE ENCONTROS
 
 banco$prop_presos <- prop_presos
-
+#write.xlsx(banco, "metricas_redes.xlsx",
+#           sheetName = "Métricas", row.names = F, showNA = F)
 
 #################################################
 #################################################
