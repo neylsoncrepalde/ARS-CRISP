@@ -8,8 +8,8 @@ library(igraph)
 library(dplyr)
 library(descr)
 
-setwd('~/Documentos/Neylson Crepalde/Doutorado/CRISP/redes_corrigidas_atualizadas')
-arquivos <- list.files('~/Documentos/Neylson Crepalde/Doutorado/CRISP/redes_corrigidas_atualizadas',
+setwd('~/Documentos/CRISP/redes_corrigidas_atualizadas')
+arquivos <- list.files('~/Documentos/CRISP/redes_corrigidas_atualizadas',
                        '.xls')
 nomes_arquivos = sapply(arquivos, gsub, pattern=' ', replacement='_')
 nomes_arquivos = sapply(nomes_arquivos, gsub, pattern='.xlsx', replacement='')
@@ -350,16 +350,51 @@ for (i in 1:length(atributos)){
 # Plotando os grafos com as informações disponíveis
 ### COLOCAR LEGENDA!!!
 
-for (i in 1:32){              
-  #exclui 33 pq não tem informação
-  plot(grafos[[i]], vertex.shape = atributos[[i]]$SHAPE,
-       vertex.color = adjustcolor(atributos[[i]]$CORES, .6),
-       vertex.size = atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES+2,
-       edge.arrow.size=.3, vertex.label = NA,
-       xlab="Tamanho = Frequência de Contato\nCor = Tipo de Relação\nForma = Preso")
-  #layout = layout_with_kk)
-  title(nomes_arquivos[i])
-}
+#for (i in 1:32){              
+#  #exclui 33 pq não tem informação
+#  plot(grafos[[i]], vertex.shape = atributos[[i]]$SHAPE,
+#       vertex.color = adjustcolor(atributos[[i]]$CORES, .6),
+#       vertex.size = atributos[[i]]$FREQUENCIA.DE.CONTADOS.NO.MES+2,
+#       edge.arrow.size=.3, vertex.label = NA,
+#       xlab="Tamanho = Frequência de Contato\nCor = Tipo de Relação\nForma = Preso")
+#  #layout = layout_with_kk)
+#  title(nomes_arquivos[i])
+#}
 
 
+##################################################
+# Roda as análises descritivas dos escores sem APAC
+
+index = grep("APAC", banco$ego)
+banco$ego[index]
+
+banco2 = banco[-index,]
+names(banco2)
+
+preso = grep("PRES", banco2$ego)
+
+banco2$preso = 0
+banco2$preso[preso] = 1
+
+cbind(banco2$ego, banco2$preso)
+freq(banco2$preso, plot=F)
+
+summary(banco2$diametros[banco2$preso == 0])
+sd(banco2$diametros[banco2$preso == 0])
+summary(banco2$diametros[banco2$preso == 1])
+sd(banco2$diametros[banco2$preso == 1])
+
+summary(banco2$densidades[banco2$preso== 0])
+sd(banco2$densidades[banco2$preso== 0])
+summary(banco2$densidades[banco2$preso== 1])
+sd(banco2$densidades[banco2$preso== 1])
+
+# Transforma em proporção (não porcentagem)
+banco2$prop_presos = banco2$prop_presos/100
+summary(banco2$prop_presos[banco2$preso== 0])
+sd(banco2$prop_presos[banco2$preso== 0])
+summary(banco2$prop_presos[banco2$preso== 1])
+sd(banco2$prop_presos[banco2$preso== 1])
+
+#write.xlsx(banco2, "metricas_redes_sem_APAC.xlsx", row.names = FALSE)
 
